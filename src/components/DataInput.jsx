@@ -2,7 +2,6 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import testCsvUrl from "../../assets/test.csv?url";
 
 export default function DataInput({
   csvText,
@@ -19,7 +18,7 @@ export default function DataInput({
 }) {
   const onLoadDemo = async () => {
     try {
-      const response = await fetch(testCsvUrl);
+      const response = await fetch("/test.csv");
       const text = await response.text();
       setCsvText(text);
     } catch (error) {
