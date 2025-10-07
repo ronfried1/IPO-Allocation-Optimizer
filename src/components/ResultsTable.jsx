@@ -25,35 +25,35 @@ export default function ResultsTable({ groups, leftovers, target }) {
   return (
     <section className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
       <h2 className="text-lg font-semibold mb-3">3) הקצאות</h2>
-      <div className="overflow-x-auto">
-        <Table dir="rtl">
+      <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+        <Table dir="rtl" className="min-w-[640px]">
           <TableHeader>
             <TableRow className="bg-slate-100 text-left text-sm">
-              <TableHead className="px-3 py-2"># קבוצה</TableHead>
-              <TableHead className="px-3 py-2" dir="rtl">חברי בורסה</TableHead>
-              <TableHead className="px-3 py-2">חישוב</TableHead>
-              <TableHead className="px-3 py-2">סכום יחידות</TableHead>
-              <TableHead className="px-3 py-2">עומד ביעד ({target})</TableHead>
-              <TableHead className="px-3 py-2">בזבוז</TableHead>
+              <TableHead className="px-2 sm:px-3 py-2 whitespace-nowrap"># קבוצה</TableHead>
+              <TableHead className="px-2 sm:px-3 py-2 whitespace-nowrap" dir="rtl">חברי בורסה</TableHead>
+              <TableHead className="px-2 sm:px-3 py-2 whitespace-nowrap">חישוב</TableHead>
+              <TableHead className="px-2 sm:px-3 py-2 whitespace-nowrap">סכום יחידות</TableHead>
+              <TableHead className="px-2 sm:px-3 py-2 whitespace-nowrap">עומד ביעד ({target})</TableHead>
+              <TableHead className="px-2 sm:px-3 py-2 whitespace-nowrap">בזבוז</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="text-sm">
             {groups.map((g, i) => (
               <TableRow key={i} className="odd:bg-white even:bg-slate-50">
-                <TableCell className="px-3 py-2">{i + 1}</TableCell>
-                <TableCell className="px-3 py-2">{g.ids.join(", ")}</TableCell>
-                <TableCell className="px-3 py-2 font-mono text-xs" dir="ltr">
+                <TableCell className="px-2 sm:px-3 py-2">{i + 1}</TableCell>
+                <TableCell className="px-2 sm:px-3 py-2">{g.ids.join(", ")}</TableCell>
+                <TableCell className="px-2 sm:px-3 py-2 font-mono text-xs" dir="ltr">
                   {g.units && g.units.length > 0 ? g.units.join(" + ") + " = " + g.total : g.total}
                 </TableCell>
-                <TableCell className="px-3 py-2">{g.total}</TableCell>
-                <TableCell className="px-3 py-2">{g.total >= target ? "כן" : "לא"}</TableCell>
-                <TableCell className="px-3 py-2">{Math.max(0, g.waste)}</TableCell>
+                <TableCell className="px-2 sm:px-3 py-2">{g.total}</TableCell>
+                <TableCell className="px-2 sm:px-3 py-2">{g.total >= target ? "כן" : "לא"}</TableCell>
+                <TableCell className="px-2 sm:px-3 py-2">{Math.max(0, g.waste)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
         {leftovers.length ? (
-          <p className="mt-3 text-sm text-slate-600">
+          <p className="mt-3 text-sm text-slate-600 break-words">
             יתרות שלא הגיעו ל-{target}: {leftovers.map((l) => `${l.id}:${l.units}`).join(", ")}
           </p>
         ) : (

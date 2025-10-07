@@ -39,6 +39,7 @@ export function parseCSV(text) {
   }
   
   // Process and validate data - calculate allocation per orderer
+  // and create separate entries for each orderer
   const out = [];
   for (const row of data) {
     const id = row[brokerColumn]?.trim();
@@ -46,7 +47,7 @@ export function parseCSV(text) {
     const orderersStr = row[orderersColumn]?.replace(/[^\d.-]/g, "") || "1";
     
     const allocation = parseFloat(allocationStr);
-    const orderers = parseFloat(orderersStr);
+    const orderers = Math.round(parseFloat(orderersStr));
     
     if (!id || orderers === 0) continue;
     
@@ -54,7 +55,10 @@ export function parseCSV(text) {
     const unitsPerOrderer = allocation / orderers;
     
     if (Number.isFinite(unitsPerOrderer) && unitsPerOrderer > 0) {
-      out.push({ id, units: Math.round(unitsPerOrderer) });
+      // Create separate entries for each orderer
+      for (let i = 0; i < orderers; i++) {
+        out.push({ id, units: Math.round(unitsPerOrderer) });
+      }
     }
   }
   

@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { DEMO_CSV } from "@/constants/demoData";
 
 export default function DataInput({
   csvText,
@@ -16,14 +17,8 @@ export default function DataInput({
   hasResults,
   downloadRef
 }) {
-  const onLoadDemo = async () => {
-    try {
-      const response = await fetch("/test.csv");
-      const text = await response.text();
-      setCsvText(text);
-    } catch (error) {
-      console.error("Failed to load demo CSV:", error);
-    }
+  const onLoadDemo = () => {
+    setCsvText(DEMO_CSV);
   };
 
   const onUploadFile = (file) => {
@@ -82,7 +77,7 @@ export default function DataInput({
             </label>
           </div>
           
-          <Button onClick={onLoadDemo} className="mt-2">
+          <Button onClick={onLoadDemo} className="mt-2 w-full">
             טען CSV לדוגמה
           </Button>
         </div>
@@ -95,18 +90,19 @@ export default function DataInput({
             placeholder={`חבר בורסה,מחיר, כמות יחידות,מס' מזמינים,סה''כ כמות הזנמה,סה''כ כמות הקצאה\n1123,1,57,1,57.00,34.00\n1131,3,35,2,70.00,42.00\n...`}
             className="w-full h-40 rounded-xl border border-slate-300 px-3 py-2 font-mono text-sm"
           />
-          <div className="flex flex-wrap items-center gap-3 mt-3">
-            <div className="flex max-w-sm items-center gap-3">
-              <Label htmlFor="csv" className="text-sm text-slate-700 whitespace-nowrap">    או העלאה מקובץ:</Label>
-              <Input className="w-52"  id="csv" type="file" accept=".csv" onChange={(e) => onUploadFile(e.currentTarget.files?.[0])} />
+          <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 mt-3">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
+              <Label htmlFor="csv" className="text-sm text-slate-700 whitespace-nowrap">או העלאה מקובץ:</Label>
+              <Input className="w-full sm:w-52" id="csv" type="file" accept=".csv" onChange={(e) => onUploadFile(e.currentTarget.files?.[0])} />
             </div>
-            <Button onClick={onRun} variant="default">
+            <Button onClick={onRun} variant="default" className="w-full sm:w-auto">
               הרץ אופטימיזציה
             </Button>
             <Button
               onClick={onDownloadCSV}
               disabled={!hasResults}
               variant="outline"
+              className="w-full sm:w-auto"
             >
               הורד תוצאות (CSV)
             </Button>

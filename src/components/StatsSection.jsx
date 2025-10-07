@@ -13,7 +13,7 @@ export default function StatsSection({ stats, target, optimizationMethod }) {
   return (
     <section className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
       <h2 className="text-lg font-semibold mb-3">2) סטטוס ותובנות</h2>
-      <div className="flex flex-wrap gap-3">
+      <div className="grid grid-cols-2 lg:flex lg:flex-wrap gap-3">
         <Stat label={'סה"כ הזמנות'} value={stats.totalOrders} />
         <Stat label="קבוצות שנוצרו" value={stats.formedGroups} />
         <Stat label={`קבוצות בדיוק ${target}`} value={stats.exactGroups} />
